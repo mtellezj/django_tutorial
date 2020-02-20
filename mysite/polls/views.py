@@ -19,6 +19,9 @@ class IndexView(generic.ListView):
         return Question.objects.filter(
             pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
+    def __str__(self):
+        return "Método de prueba."
+
 
 class DetailView(generic.DetailView):
     model = Question
@@ -49,5 +52,5 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        return HttpResponseRedirect(reverse('polls:results',
-                                            args=(question_id,)))
+        return HttpResponseRedirect(
+            reverse('polls:results', args=(question_id, )))
